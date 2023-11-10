@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Recipes View Controller-->
+        <scene sceneID="2SI-78-4bx">
+            <objects>
+                <viewController storyboardIdentifier="RecipesViewControllerId" id="YdV-dd-0TB" customClass="RecipesViewController" customModule="RecipesApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xpu-yR-vfL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="mca-rc-crd">
+                                <rect key="frame" x="5" y="134" width="383" height="694"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Busca tu plato peruano" translatesAutoresizingMaskIntoConstraints="NO" id="NqQ-hv-v1b">
+                                <rect key="frame" x="26" y="73" width="341" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <connections>
+                                    <outlet property="delegate" destination="YdV-dd-0TB" id="MHm-uH-hCm"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="T77-FS-dMu"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mca-rc-crd" firstAttribute="leading" secondItem="T77-FS-dMu" secondAttribute="leading" constant="5" id="1GZ-8t-K4B"/>
+                            <constraint firstItem="NqQ-hv-v1b" firstAttribute="top" secondItem="T77-FS-dMu" secondAttribute="top" constant="14" id="9fB-5L-wjO"/>
+                            <constraint firstItem="mca-rc-crd" firstAttribute="bottom" secondItem="T77-FS-dMu" secondAttribute="bottom" constant="10" id="IOK-bd-6o1"/>
+                            <constraint firstItem="mca-rc-crd" firstAttribute="top" secondItem="NqQ-hv-v1b" secondAttribute="bottom" constant="5" id="TzU-L0-v55"/>
+                            <constraint firstItem="T77-FS-dMu" firstAttribute="trailing" secondItem="NqQ-hv-v1b" secondAttribute="trailing" constant="26" id="cOU-gR-NY3"/>
+                            <constraint firstItem="T77-FS-dMu" firstAttribute="trailing" secondItem="mca-rc-crd" secondAttribute="trailing" constant="5" id="i1L-Q5-ZKp"/>
+                            <constraint firstItem="NqQ-hv-v1b" firstAttribute="leading" secondItem="T77-FS-dMu" secondAttribute="leading" constant="26" id="wE6-oM-Tw1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recipeTableView" destination="mca-rc-crd" id="Ert-Iv-aLL"/>
+                        <outlet property="searchBar" destination="NqQ-hv-v1b" id="NRm-Yp-mYD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dJ8-Js-3lb" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-540" y="-10"/>
+        </scene>
+    </scenes>
+</document>

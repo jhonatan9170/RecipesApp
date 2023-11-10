@@ -7,6 +7,22 @@
 
 import UIKit
 
+class CustomNavigationBar: UINavigationBar {
+
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        let navBarAppearance = UINavigationBarAppearance()
+             navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = UIColor(named: "colorNavBar")
+        CustomNavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+        self.backgroundColor = UIColor(named: "colorNavBar")
+       // self.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: customHeight)
+    }
+}
+
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -16,7 +32,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let window = UIWindow(windowScene: windowScene)
+        
+        let storyboard = UIStoryboard(name: "RecipesStoryboard", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RecipesViewControllerId")
+        let navigationController = UINavigationController(rootViewController: vc)
+        setNavBar()
+        window.rootViewController = navigationController
+        
+        window.makeKeyAndVisible()
+        self.window = window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,6 +74,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    func setNavBar(){
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+        ]
+        navigationBarAppearance.backgroundColor = UIColor(named: "colorNavBar")
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor(named: "colorNavBar")
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+    }
 
 }
 
