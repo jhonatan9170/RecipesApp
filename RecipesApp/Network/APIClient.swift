@@ -24,11 +24,21 @@ protocol URLSessionProtocol{
     func dataTask(with request: URLRequest, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
+protocol APIClientProtocol {
+    func request<T: Codable>(
+            url: String,
+            method: HTTPMethod,
+            headers: [String: String]?,
+            parameters: [String: Any]?,
+            completion: @escaping (Result<T, APIClientError>) -> Void
+        )
+}
+
 extension URLSession:URLSessionProtocol{
     
 }
 
-class APIClient {
+class APIClient:APIClientProtocol {
     
     static let shared = APIClient()
     
@@ -67,7 +77,7 @@ class APIClient {
         }
         
         let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error {
+            if error != nil {
                 completion(.failure(.networkError))
                 return
             }
