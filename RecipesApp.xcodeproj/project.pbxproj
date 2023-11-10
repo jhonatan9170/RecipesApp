@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0362F0BD2AFEE98F00EF8709 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0BC2AFEE98E00EF8709 /* LocationViewController.swift */; };
 		039EF01B2AFC847800141A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01A2AFC847800141A29 /* AppDelegate.swift */; };
 		039EF01D2AFC847800141A29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01C2AFC847800141A29 /* SceneDelegate.swift */; };
 		039EF0242AFC847A00141A29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 039EF0232AFC847A00141A29 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0362F0BC2AFEE98E00EF8709 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		039EF0172AFC847800141A29 /* RecipesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		039EF01A2AFC847800141A29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		039EF01C2AFC847800141A29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				03C6FC8B2AFEA056001730D4 /* RecipesViewController.swift */,
 				03C6FC8D2AFEC9ED001730D4 /* RecipesStoryboard.storyboard */,
 				03C6FC8F2AFED391001730D4 /* RecipeDetailViewController.swift */,
+				0362F0BC2AFEE98E00EF8709 /* LocationViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				03C6FC7B2AFE0B0B001730D4 /* RecipesModel.swift in Sources */,
 				03EB4BE42AFDB3C900F41A24 /* RecipesService.swift in Sources */,
 				03C6FC8C2AFEA056001730D4 /* RecipesViewController.swift in Sources */,
+				0362F0BD2AFEE98F00EF8709 /* LocationViewController.swift in Sources */,
 				03C6FC892AFEA00E001730D4 /* RecipesTableViewCell.swift in Sources */,
 				039EF01B2AFC847800141A29 /* AppDelegate.swift in Sources */,
 				03C6FC7F2AFE10DF001730D4 /* Constants.swift in Sources */,
