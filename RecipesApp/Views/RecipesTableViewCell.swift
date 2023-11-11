@@ -16,9 +16,11 @@ class RecipesTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let url = URL(string: "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/salade-nicoise-565173e.jpg")
+    }
+    
+    func configure(title: String, url:String){
+        titleLabel.text = title
+        let url = URL(string: url)
         foodUIImage.kf.setImage(with: url,placeholder: UIImage(named: "imagePlaceholder"))
-        
     }
 }

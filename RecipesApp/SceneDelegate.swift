@@ -7,22 +7,6 @@
 
 import UIKit
 
-class CustomNavigationBar: UINavigationBar {
-
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        let navBarAppearance = UINavigationBarAppearance()
-             navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = UIColor(named: "colorNavBar")
-        CustomNavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
-        self.backgroundColor = UIColor(named: "colorNavBar")
-       // self.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: customHeight)
-    }
-}
-
-
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
