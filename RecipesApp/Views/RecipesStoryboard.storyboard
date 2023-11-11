@@ -191,6 +191,9 @@
                                                             </attributedString>
                                                             <color key="baseForegroundColor" name="colorLetras"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="locationButtonTapped:" destination="Ls6-wz-Hja" eventType="touchUpInside" id="hxO-3q-TgY"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -230,8 +233,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="descriptionLabel" destination="sFS-Tj-UOK" id="Hq8-8r-AG2"/>
                         <outlet property="diffficultyLabel" destination="4y7-KW-7Ec" id="mlf-be-gSK"/>
                         <outlet property="ingredientsLabel" destination="IbK-6S-cwz" id="gKO-iV-jw1"/>
+                        <outlet property="locationButton" destination="jd3-cu-JdZ" id="Vzu-ir-cTI"/>
                         <outlet property="procedureLabel" destination="6Rc-9e-IqO" id="kwI-OB-YbC"/>
                         <outlet property="recipeImage" destination="wIg-NQ-Vjg" id="6Af-dQ-PoL"/>
                         <outlet property="titleLabel" destination="T8B-rD-n8C" id="Heb-mN-i84"/>
@@ -239,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Lb-QR-Z4Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="348.85496183206106" y="-11.267605633802818"/>
+            <point key="canvasLocation" x="106" y="0.0"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="K5K-zL-Djo">

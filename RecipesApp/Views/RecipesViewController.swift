@@ -58,7 +58,11 @@ extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewControllerId") as? RecipeDetailViewController  else {
             return
         }
-
+        let recipe = viewModel.recipeForCellAtIndex(indexPath.row)
+        let vm = RecipeDetailViewModel(recipeId: recipe.recipeId)
+        vm.location = recipe.origen
+        
+        vc.viewModel = vm
         navigationController?.pushViewController(vc, animated: true)
     }
 }
