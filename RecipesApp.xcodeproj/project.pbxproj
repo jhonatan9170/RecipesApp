@@ -10,6 +10,7 @@
 		0329357A2AFF341C002D2E45 /* LocationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032935792AFF341C002D2E45 /* LocationServiceTests.swift */; };
 		0329357C2AFF350C002D2E45 /* RecipesApp.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 0329357B2AFF350C002D2E45 /* RecipesApp.xctestplan */; };
 		0329357E2AFF3777002D2E45 /* RecipesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0329357D2AFF3777002D2E45 /* RecipesViewModelTests.swift */; };
+		032935802AFF3C07002D2E45 /* RecipeDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0329357F2AFF3C07002D2E45 /* RecipeDetailViewModelTests.swift */; };
 		0362F0BD2AFEE98F00EF8709 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0BC2AFEE98E00EF8709 /* LocationViewController.swift */; };
 		0362F0C02AFEF4F300EF8709 /* RecipesVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0BF2AFEF4F300EF8709 /* RecipesVIewModel.swift */; };
 		0362F0C22AFF012800EF8709 /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0C12AFF012800EF8709 /* RecipeDetailViewModel.swift */; };
@@ -50,6 +51,7 @@
 		032935792AFF341C002D2E45 /* LocationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceTests.swift; sourceTree = "<group>"; };
 		0329357B2AFF350C002D2E45 /* RecipesApp.xctestplan */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = RecipesApp.xctestplan; sourceTree = SOURCE_ROOT; };
 		0329357D2AFF3777002D2E45 /* RecipesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewModelTests.swift; sourceTree = "<group>"; };
+		0329357F2AFF3C07002D2E45 /* RecipeDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModelTests.swift; sourceTree = "<group>"; };
 		0362F0BC2AFEE98E00EF8709 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		0362F0BF2AFEF4F300EF8709 /* RecipesVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesVIewModel.swift; sourceTree = "<group>"; };
 		0362F0C12AFF012800EF8709 /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				03C6FC802AFE8ED4001730D4 /* RecipesServiceTests.swift */,
 				032935792AFF341C002D2E45 /* LocationServiceTests.swift */,
 				0329357D2AFF3777002D2E45 /* RecipesViewModelTests.swift */,
+				0329357F2AFF3C07002D2E45 /* RecipeDetailViewModelTests.swift */,
 			);
 			path = RecipesAppTests;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				03EB4BEA2AFDB81400F41A24 /* APIClientTest.swift in Sources */,
 				03C6FC812AFE8ED4001730D4 /* RecipesServiceTests.swift in Sources */,
 				0329357A2AFF341C002D2E45 /* LocationServiceTests.swift in Sources */,
+				032935802AFF3C07002D2E45 /* RecipeDetailViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
