@@ -8,37 +8,43 @@
 import CoreLocation
 
 
-protocol LocationViewModelDelegate:AnyObject {
-    func success(_ viewModel:LocationViewModel )
-    func error(_ viewModel:LocationViewModel )
+protocol LocationViewModelProtocol:AnyObject {
+    var coordidates: CLLocationCoordinate2D? { get }
+    var location: String { get }
+    func getCoordinates()
+
 }
 
 class LocationViewModel {
     
-    var service:LocationServiceProtocol
+    private var service:LocationServiceProtocol
+    private var view: LocationViewControllerProtocol
+    private var _location: String
+    private var _coordinates: CLLocationCoordinate2D?
     
-    weak var delegate: LocationViewModelDelegate?
-    
-    let location:String
-    
-    var coordinates:CLLocationCoordinate2D?
-    
-    init(service: LocationServiceProtocol = LocationService(), location:String) {
-        self.location = location
+    init(view: LocationViewControllerProtocol,
+         service: LocationServiceProtocol = LocationService(),
+         location:String) {
+        self.view = view
+        _location = location
         self.service = service
+    }
+
+}
+
+extension LocationViewModel: LocationViewModelProtocol {
+    var coordidates: CLLocationCoordinate2D? {
+        return _coordinates
+    }
+    
+    var location: String {
+        return _location
     }
     
     func getCoordinates() {
-        service.coordinate(for: location) {[weak self] coordinate in
-            guard let self else {
-                return
-            }
-            guard let coordinate else {
-                self.delegate?.error(self)
-                return
-            }
-            self.coordinates = coordinate
-            self.delegate?.success(self)
+        service.coordinate(for: location) { coordinate in
+            self._coordinates = coordinate
+            self.view.updateMap()
         }
     }
 }

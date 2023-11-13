@@ -8,50 +8,53 @@
 import UIKit
 import MapKit
 
+protocol LocationViewControllerProtocol {
+    func updateMap()
+}
+
 class LocationViewController: UIViewController {
     
-    @IBOutlet weak var locationView:MKMapView!
+    @IBOutlet weak var locationView:MKMapView! {
+        didSet{
+            let centre = CLLocationCoordinate2D(latitude:  -9.189967, longitude: -75.015152)
+            locationView.setCenter(centre, animated: false)
+            locationView.isHidden = true
+        }
+    }
     
-    var viewModel: LocationViewModel!
+    var viewModel: LocationViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
-        viewModel.delegate = self
-        viewModel.getCoordinates()
+        viewModel?.getCoordinates()
     }
     
-    func setupViews() {
+    private func setupViews() {
         view.addSpinner()
-        self.title = viewModel.location + ", Perú"
-        let centre = CLLocationCoordinate2D(latitude:  -9.189967, longitude: -75.015152)
-        locationView.setCenter(centre, animated: false)
-        locationView.isHidden = true
+        if let location = viewModel?.location {
+            self.title = location + ", Perú"
+        }
+    }
+    
+    private func showError() {
+        view.removeSpinner()
+        locationView.isHidden = false
     }
 }
 
-extension LocationViewController: LocationViewModelDelegate{
-    func success(_ viewModel: LocationViewModel) {
-        guard let coordinates = viewModel.coordinates else {
-            error(viewModel)
-            return
-        }
+extension LocationViewController: LocationViewControllerProtocol {
+    
+    func updateMap() {
         locationView.isHidden = false
         let pin = MKPointAnnotation()
-        pin.coordinate = coordinates
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-            self?.locationView.addAnnotation(pin)
+        if let coordinates = viewModel?.coordidates {
+            pin.coordinate = coordinates
+        } else {
+            showError()
         }
+        view.removeSpinner()
+        locationView.addAnnotation(pin)
     }
-    
-    func error(_ viewModel: LocationViewModel) {
-
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-            self?.locationView.isHidden = false
-        }
-    }
-
 }
+

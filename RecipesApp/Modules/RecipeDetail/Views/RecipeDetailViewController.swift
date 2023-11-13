@@ -46,7 +46,7 @@ class RecipeDetailViewController: UIViewController {
     }
     @IBAction func locationButtonTapped( _ sender :UIButton) {
         let vc = LocationViewController(nibName: "LocationViewController", bundle: nil)
-        vc.viewModel = LocationViewModel(location: viewModel.location)
+        vc.viewModel = LocationViewModel(view: vc, location: viewModel.location)
         navigationController?.pushViewController(vc, animated: true)
     }
 }

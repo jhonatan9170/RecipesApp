@@ -18,7 +18,6 @@ class LocationService:LocationServiceProtocol {
             }
             let latitude = coordinate.latitude
             let longitude = coordinate.longitude
-            
             completion(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         }
     }
