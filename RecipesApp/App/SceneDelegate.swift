@@ -20,8 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        let storyboard = UIStoryboard(name: "RecipesStoryboard", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "RecipesViewControllerId")
+        let vc = RecipesViewController(nibName: "RecipesViewController", bundle: nil)
         let navigationController = UINavigationController(rootViewController: vc)
         setNavBar()
         window.rootViewController = navigationController

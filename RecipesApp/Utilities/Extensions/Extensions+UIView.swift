@@ -107,21 +107,3 @@ extension UIView {
      }
 }
 
-extension Encodable {
-    var dictionary: [String: Any]? {
-        guard let data = try? JSONEncoder().encode(self) else { return nil }
-        return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? [String: Any] }
-    }
-}
-
-extension UIViewController {
-    func showErrorAlert(error: String){
-        let alert = UIAlertController(title: "Error",
-                                      message: error,
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okAction)
-        
-        present(alert, animated: true)
-    }
-}

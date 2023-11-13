@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecipesViewController" customModule="RecipesApp" customModuleProvider="target">
+            <connections>
+                <outlet property="recipeTableView" destination="jsx-iv-Lhx" id="xEv-LD-UBw"/>
+                <outlet property="searchBar" destination="Gj1-Ex-xeq" id="7RL-M1-8Wb"/>
+                <outlet property="view" destination="60W-YM-YEe" id="LPu-QC-rHF"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="60W-YM-YEe">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="jsx-iv-Lhx">
+                    <rect key="frame" x="5" y="134" width="383" height="694"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" text="" placeholder="Busca tu plato peruano" translatesAutoresizingMaskIntoConstraints="NO" id="Gj1-Ex-xeq">
+                    <rect key="frame" x="26" y="73" width="341" height="56"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <scopeButtonTitles>
+                        <string>Title</string>
+                        <string>Title</string>
+                    </scopeButtonTitles>
+                </searchBar>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Sc0-gf-EkW"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="jsx-iv-Lhx" firstAttribute="top" secondItem="Gj1-Ex-xeq" secondAttribute="bottom" constant="5" id="8wE-yl-nSI"/>
+                <constraint firstItem="Gj1-Ex-xeq" firstAttribute="leading" secondItem="Sc0-gf-EkW" secondAttribute="leading" constant="26" id="LhB-ME-c4E"/>
+                <constraint firstItem="Sc0-gf-EkW" firstAttribute="trailing" secondItem="Gj1-Ex-xeq" secondAttribute="trailing" constant="26" id="NVQ-SO-LsI"/>
+                <constraint firstItem="Sc0-gf-EkW" firstAttribute="trailing" secondItem="jsx-iv-Lhx" secondAttribute="trailing" constant="5" id="NrG-E3-ivw"/>
+                <constraint firstItem="Gj1-Ex-xeq" firstAttribute="top" secondItem="Sc0-gf-EkW" secondAttribute="top" constant="14" id="Uh8-8Q-q3J"/>
+                <constraint firstItem="jsx-iv-Lhx" firstAttribute="leading" secondItem="Sc0-gf-EkW" secondAttribute="leading" constant="5" id="dgd-0i-MX5"/>
+                <constraint firstItem="jsx-iv-Lhx" firstAttribute="bottom" secondItem="Sc0-gf-EkW" secondAttribute="bottom" constant="10" id="ohh-M0-nYV"/>
+            </constraints>
+            <point key="canvasLocation" x="-292" y="-658"/>
+        </view>
+    </objects>
+</document>

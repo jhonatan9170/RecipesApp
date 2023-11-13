@@ -55,9 +55,7 @@ extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewControllerId") as? RecipeDetailViewController  else {
-            return
-        }
+        let vc = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
         let recipe = viewModel.recipeForCellAtIndex(indexPath.row)
         let vm = RecipeDetailViewModel(recipeId: recipe.recipeId)
         vm.location = recipe.origen
