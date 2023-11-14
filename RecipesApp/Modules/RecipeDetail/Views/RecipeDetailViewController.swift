@@ -16,7 +16,9 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet weak private var recipeImage: UIImageView!
     @IBOutlet weak private var titleLabel: UILabel!{
         didSet{
-            setLabel(label: titleLabel)
+            titleLabel.text =  ""
+            titleLabel.textColor = UIColor(named: "colorLetras")
+            titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 16.0)
         }
     }
     @IBOutlet weak private var descriptionLabel: UILabel!{
@@ -41,24 +43,30 @@ class RecipeDetailViewController: UIViewController {
     }
     @IBOutlet weak private var locationButton: UIButton!{
         didSet {
+            let locationName = viewModel?.location ?? ""
             let attributeString = NSMutableAttributedString(
-                string: "  Location: "+viewModel.location,
-                attributes: [.underlineStyle:NSUnderlineStyle.single.rawValue]
+                string: " Location: "+locationName,
+                attributes: [
+                    .underlineStyle:NSUnderlineStyle.single.rawValue,
+                    .font:  UIFont(name: "HelveticaNeue-Bold", size: 16.0) ?? UIFont()
+                            ]
             )
             locationButton.setAttributedTitle(attributeString, for: .normal)
         }
     }
     
-    var viewModel:RecipeDetailViewModelProtocol!
+    var viewModel:RecipeDetailViewModelProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.getDetail()
+        viewModel?.getDetail()
         view.addSpinner()
     }
     
     private func setLabel(label: UILabel?){
         label?.text =  ""
+        label?.textColor = UIColor(named: "colorLetras")
+        label?.font = UIFont(name: "HelveticaNeue", size: 12.0)
     }
     
     private func setupView(with recipe: Recipe) {
@@ -78,7 +86,7 @@ class RecipeDetailViewController: UIViewController {
     
     @IBAction private func locationButtonTapped( _ sender :UIButton) {
         let vc = LocationViewController(nibName: "LocationViewController", bundle: nil)
-        vc.viewModel = LocationViewModel(view: vc, location: viewModel.location)
+        vc.viewModel = LocationViewModel(view: vc, location: viewModel?.location ?? "")
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -86,7 +94,7 @@ class RecipeDetailViewController: UIViewController {
 extension RecipeDetailViewController: RecipeDetailViewControllerProtocol {
     func updateDetail() {
         view.removeSpinner()
-        if let recipe = viewModel.recipe {
+        if let recipe = viewModel?.recipe {
             setupView(with: recipe)
         } else {
             showError()

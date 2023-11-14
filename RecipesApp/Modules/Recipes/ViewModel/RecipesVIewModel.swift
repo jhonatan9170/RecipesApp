@@ -7,54 +7,63 @@
 
 import Foundation
 
-protocol RecipesViewModelDelegate:AnyObject {
-    func success(_ viewModel:RecipesViewModel )
-    func error(_ viewModel:RecipesViewModel )
+protocol RecipesViewModelProtocol {
+    var recipesToShow: RecipesResponse {get}
+    func getRecipes()
+    func filterByName(text: String)
+    func cleanFilter()
+    func recipeForCellAtIndex(_ index : Int) -> RecipesElement
 }
 
 class RecipesViewModel {
     
-    var service:RecipesServiceProtocol
+    private var service: RecipesServiceProtocol
+    private weak var view: (RecipesViewControllerProtocol)?
     
-    weak var delegate: RecipesViewModelDelegate?
+    var _recipesToShow :RecipesResponse = []
     
-    var recipes:RecipesResponse = []
-    var allRecipes:RecipesResponse = []
+    private var allRecipes:RecipesResponse = []
     
-    init(service: RecipesServiceProtocol = RecipesService()) {
+    init(service: RecipesServiceProtocol = RecipesService(),view: RecipesViewControllerProtocol) {
         self.service = service
+        self.view = view
+    }
+        
+}
+
+extension RecipesViewModel:RecipesViewModelProtocol{
+    
+    var recipesToShow: RecipesResponse {
+        return _recipesToShow
     }
     
     func getRecipes(){
-        service.getRecipes {[weak self] recipes in
-            guard let self else {return}
-            
+        service.getRecipes { recipes in
             guard let recipes else {
-                self.delegate?.error(self)
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.error(error: "No se pudo cargar las recetas")
+                }
                 return
             }
-            self.recipes = recipes
-            self.allRecipes = recipes
-            self.delegate?.success(self)
+            DispatchQueue.main.async { [weak self] in
+                self?._recipesToShow = recipes
+                self?.allRecipes = recipes
+                self?.view?.reloadTableView()
+            }
         }
     }
     
     func recipeForCellAtIndex(_ index : Int) -> RecipesElement {
-        return recipes[index]
-    }
-    
-    func recipeIdForCellAtIndex(_ index : Int) -> String {
-        return recipes[index].recipeId
+        return _recipesToShow[index]
     }
     
     func filterByName(text: String) {
-        self.recipes = allRecipes.filter { $0.recipeName.lowercased().contains(text.lowercased()) }
-        self.delegate?.success(self)
+        self._recipesToShow = allRecipes.filter { $0.recipeName.lowercased().contains(text.lowercased()) }
+        view?.reloadTableView()
     }
     
     func cleanFilter(){
-        self.recipes = self.allRecipes
-        self.delegate?.success(self)
+        self._recipesToShow = self.allRecipes
+        view?.reloadTableView()
     }
-    
 }

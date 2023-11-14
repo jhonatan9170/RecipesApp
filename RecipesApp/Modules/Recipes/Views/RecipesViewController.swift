@@ -7,29 +7,33 @@
 
 import UIKit
 
+protocol RecipesViewControllerProtocol:AnyObject {
+    func reloadTableView()
+    func error(error: String)
+}
+
 class RecipesViewController: UIViewController {
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var recipeTableView: UITableView!
+    @IBOutlet weak private var searchBar: UISearchBar!
+    @IBOutlet weak private var recipeTableView: UITableView!
     
-    var viewModel = RecipesViewModel()
+    var viewModel: RecipesViewModelProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegates()
         setupViews()
-        viewModel.getRecipes()
+        viewModel?.getRecipes()
     }
     
-    func setupDelegates(){
+    private func setupDelegates(){
         recipeTableView.dataSource = self
         recipeTableView.delegate = self
-        viewModel.delegate = self
         searchBar.delegate = self
         view.addSpinner()
     }
     
-    func setupViews() {
+    private func setupViews() {
         self.title = "Peruvian Recipes"
         recipeTableView.register(UINib(nibName: "RecipesTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipesTableViewCell")
         recipeTableView.backgroundColor = .clear
@@ -41,7 +45,7 @@ class RecipesViewController: UIViewController {
 }
 extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.recipes.count
+        return viewModel.recipesToShow.count
     }
     
 
@@ -73,18 +77,16 @@ extension RecipesViewController: UISearchBarDelegate{
     
 }
 
-extension RecipesViewController: RecipesViewModelDelegate {
-    func success(_ viewModel: RecipesViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-            self?.recipeTableView.reloadData()
-        }
+extension RecipesViewController: RecipesViewControllerProtocol{
+    
+    func reloadTableView() {
+        view.removeSpinner()
+        recipeTableView.reloadData()
     }
     
-    func error(_ viewModel: RecipesViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-        }
-        self.showErrorAlert(error: "No se pudo cargar las recetas")
+    func error(error: String) {
+        view.removeSpinner()
+        showErrorAlert(error: error)
     }
+
 }

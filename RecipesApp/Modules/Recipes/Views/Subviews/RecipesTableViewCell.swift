@@ -11,7 +11,13 @@ import Kingfisher
 class RecipesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var foodUIImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!{
+        didSet{
+            titleLabel.text =  ""
+            titleLabel.textColor = UIColor(named: "colorLetras")
+            titleLabel.font =  UIFont(name: "HelveticaNeue-Bold", size: 14.0) 
+        }
+    }
     
     
     override func awakeFromNib() {

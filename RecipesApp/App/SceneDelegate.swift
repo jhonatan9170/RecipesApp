@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        
         let vc = RecipesViewController(nibName: "RecipesViewController", bundle: nil)
+        vc.viewModel = RecipesViewModel(view: vc)
         let navigationController = UINavigationController(rootViewController: vc)
         setNavBar()
         window.rootViewController = navigationController
