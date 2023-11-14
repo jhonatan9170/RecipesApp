@@ -25,6 +25,10 @@
 		0362F0C22AFF012800EF8709 /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0C12AFF012800EF8709 /* RecipeDetailViewModel.swift */; };
 		0362F0C42AFF269F00EF8709 /* LocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0C32AFF269F00EF8709 /* LocationDataSource.swift */; };
 		0362F0C62AFF285300EF8709 /* LocationVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0362F0C52AFF285300EF8709 /* LocationVIewModel.swift */; };
+		038632252B04006D0089B94D /* RecipesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632242B04006D0089B94D /* RecipesBuilder.swift */; };
+		038632282B0400AF0089B94D /* RecipesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632272B0400AF0089B94D /* RecipesRouter.swift */; };
+		0386322B2B041E130089B94D /* LocationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386322A2B041E130089B94D /* LocationRouter.swift */; };
+		0386322E2B041FCF0089B94D /* LocationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386322D2B041FCF0089B94D /* LocationBuilder.swift */; };
 		039EF01B2AFC847800141A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01A2AFC847800141A29 /* AppDelegate.swift */; };
 		039EF01D2AFC847800141A29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01C2AFC847800141A29 /* SceneDelegate.swift */; };
 		039EF0242AFC847A00141A29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 039EF0232AFC847A00141A29 /* Assets.xcassets */; };
@@ -73,6 +77,10 @@
 		0362F0C12AFF012800EF8709 /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		0362F0C32AFF269F00EF8709 /* LocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataSource.swift; sourceTree = "<group>"; };
 		0362F0C52AFF285300EF8709 /* LocationVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationVIewModel.swift; sourceTree = "<group>"; };
+		038632242B04006D0089B94D /* RecipesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesBuilder.swift; sourceTree = "<group>"; };
+		038632272B0400AF0089B94D /* RecipesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesRouter.swift; sourceTree = "<group>"; };
+		0386322A2B041E130089B94D /* LocationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRouter.swift; sourceTree = "<group>"; };
+		0386322D2B041FCF0089B94D /* LocationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationBuilder.swift; sourceTree = "<group>"; };
 		039EF0172AFC847800141A29 /* RecipesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		039EF01A2AFC847800141A29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		039EF01C2AFC847800141A29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +140,8 @@
 		030E8FDC2B02DB120018C8BC /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				0386322C2B041FBD0089B94D /* Builder */,
+				038632292B041DFD0089B94D /* Router */,
 				030E8FF22B02E6DD0018C8BC /* ViewModel */,
 				030E8FF12B02E6BD0018C8BC /* Views */,
 			);
@@ -150,6 +160,8 @@
 		030E8FE82B02DFAC0018C8BC /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				038632262B0400A10089B94D /* Router */,
+				038632232B04005C0089B94D /* Builder */,
 				030E8FF62B02E7430018C8BC /* Models */,
 				030E8FF52B02E7120018C8BC /* ViewModel */,
 				030E8FF32B02E6EE0018C8BC /* Views */,
@@ -288,6 +300,38 @@
 				030E900A2B0316E40018C8BC /* RecipeDetailRouter.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		038632232B04005C0089B94D /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				038632242B04006D0089B94D /* RecipesBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		038632262B0400A10089B94D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				038632272B0400AF0089B94D /* RecipesRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		038632292B041DFD0089B94D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				0386322A2B041E130089B94D /* LocationRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		0386322C2B041FBD0089B94D /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				0386322D2B041FCF0089B94D /* LocationBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 		039EF00E2AFC847800141A29 = {
@@ -540,10 +584,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0386322E2B041FCF0089B94D /* LocationBuilder.swift in Sources */,
 				03C6FC7B2AFE0B0B001730D4 /* RecipesModel.swift in Sources */,
 				030E90032B02EAE60018C8BC /* Constants.swift in Sources */,
 				0362F0C22AFF012800EF8709 /* RecipeDetailViewModel.swift in Sources */,
+				0386322B2B041E130089B94D /* LocationRouter.swift in Sources */,
 				03EB4BE42AFDB3C900F41A24 /* RecipesDataSource.swift in Sources */,
+				038632282B0400AF0089B94D /* RecipesRouter.swift in Sources */,
 				03C6FC8C2AFEA056001730D4 /* RecipesViewController.swift in Sources */,
 				030E8FFB2B02E8240018C8BC /* Extension+UIViewController.swift in Sources */,
 				0362F0BD2AFEE98F00EF8709 /* LocationViewController.swift in Sources */,
@@ -553,6 +600,7 @@
 				0362F0C42AFF269F00EF8709 /* LocationDataSource.swift in Sources */,
 				039EF01B2AFC847800141A29 /* AppDelegate.swift in Sources */,
 				039EF01D2AFC847800141A29 /* SceneDelegate.swift in Sources */,
+				038632252B04006D0089B94D /* RecipesBuilder.swift in Sources */,
 				03C6FC902AFED391001730D4 /* RecipeDetailViewController.swift in Sources */,
 				03EB4BE62AFDB40400F41A24 /* APIClient.swift in Sources */,
 				030E90082B0316930018C8BC /* RecipeDetailBuilder.swift in Sources */,

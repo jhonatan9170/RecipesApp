@@ -8,7 +8,8 @@
 import UIKit
 
 protocol RecipeDetailViewControllerProtocol: AnyObject {
-    func updateDetail()
+    func updateDetail(with recipe: Recipe)
+    func updateSpinner(loading: Bool)
 }
 
 class RecipeDetailViewController: UIViewController {
@@ -43,9 +44,8 @@ class RecipeDetailViewController: UIViewController {
     }
     @IBOutlet weak private var locationButton: UIButton!{
         didSet {
-            let locationName = viewModel?.location ?? ""
             let attributeString = NSMutableAttributedString(
-                string: " Location: "+locationName,
+                string: " Location: "+viewModel.location,
                 attributes: [
                     .underlineStyle:NSUnderlineStyle.single.rawValue,
                     .font:  UIFont(name: "HelveticaNeue-Bold", size: 16.0) ?? UIFont()
@@ -55,11 +55,12 @@ class RecipeDetailViewController: UIViewController {
         }
     }
     
-    private var viewModel:RecipeDetailViewModelProtocol?
+    private var viewModel:RecipeDetailViewModelProtocol
     
-    init(recipeId: String, location: String) {
+    init(viewModel: RecipeDetailViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: String(describing: RecipeDetailViewController.self), bundle: Bundle.main)
-        self.viewModel = RecipeDetailViewModel(recipeId: recipeId, location: location, view: self)
+        viewModel.setViewControllerProtocol(view: self)
     }
     
     required init?(coder: NSCoder) {
@@ -68,8 +69,8 @@ class RecipeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel?.getDetail()
-        view.addSpinner()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
+        viewModel.getDetail()
     }
     
     private func setLabel(label: UILabel?){
@@ -78,7 +79,13 @@ class RecipeDetailViewController: UIViewController {
         label?.font = UIFont(name: "HelveticaNeue", size: 12.0)
     }
     
-    private func setupView(with recipe: Recipe) {
+    @IBAction private func locationButtonTapped( _ sender :UIButton) {
+        viewModel.showLocation()
+    }
+}
+
+extension RecipeDetailViewController: RecipeDetailViewControllerProtocol {
+    func updateDetail(with recipe: Recipe) {
         self.title = recipe.name
         titleLabel.text = recipe.name
         descriptionLabel.text = recipe.description
@@ -86,27 +93,9 @@ class RecipeDetailViewController: UIViewController {
         ingredientsLabel.text = recipe.ingredients
         procedureLabel.text = recipe.procedure
         diffficultyLabel.text = recipe.dificulty
-        
     }
     
-    private func showError() {
-        showErrorAlert(error: "No se pudo cargar la receta")
-    }
-    
-    @IBAction private func locationButtonTapped( _ sender :UIButton) {
-        let vc = LocationViewController(nibName: "LocationViewController", bundle: nil)
-        vc.viewModel = LocationViewModel(view: vc, location: viewModel?.location ?? "")
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension RecipeDetailViewController: RecipeDetailViewControllerProtocol {
-    func updateDetail() {
-        view.removeSpinner()
-        if let recipe = viewModel?.recipe {
-            setupView(with: recipe)
-        } else {
-            showError()
-        }
+    func updateSpinner(loading: Bool){
+        loading ? view.addSpinner() : view.removeSpinner()
     }
 }

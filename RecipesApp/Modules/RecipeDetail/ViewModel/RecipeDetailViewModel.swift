@@ -9,38 +9,35 @@ import Foundation
 
 protocol RecipeDetailViewModelProtocol: AnyObject {
     var location: String { get }
-    var recipe: Recipe? { get }
     func getDetail()
+    
+    func setViewControllerProtocol(view : RecipeDetailViewControllerProtocol)
+    func showScreen()
+    func showLocation()
 }
 
 class RecipeDetailViewModel{
 
     let _location: String
-    
-    private var _recipe:Recipe?
-    
+        
     private let recipeId: String
     
     private var service: RecipesDataSource
     
     private weak var view: RecipeDetailViewControllerProtocol?
+    private let router: RecipeDetailRouterProtocol
 
-    init(service: RecipesDataSource = RecipesDataSource(), recipeId: String, location: String, view: RecipeDetailViewControllerProtocol) {
-        self.recipeId = recipeId
+    init(service: RecipesDataSource = RecipesDataSource(),router: RecipeDetailRouterProtocol, recipeId: String, location: String) {
         self.service = service
+        self.recipeId = recipeId
         self._location = location
-        self.view = view
+        self.router = router
     }
     
-    private func setRecipeModel(from recipeResponse: RecipeResponse?){
-        
-        guard let recipeResponse else {
-            return
-        }
-        
+    private func getRecipeModel(from recipeResponse: RecipeResponse)->Recipe{
         let ingredients = getIngredientsText(recipeResponse.ingredients)
         let procedure = getProcedureText(recipeResponse.steps)
-        self._recipe = Recipe(name: recipeResponse.name,
+        return Recipe(name: recipeResponse.name,
                              dificulty: recipeResponse.difficulty ?? "",
                              description: recipeResponse.description ?? "",
                              ingredients: ingredients,
@@ -71,19 +68,42 @@ class RecipeDetailViewModel{
 }
 
 extension RecipeDetailViewModel: RecipeDetailViewModelProtocol {
+    
     var location: String {
         return _location
     }
     
-    var recipe: Recipe? {
-        return _recipe
+    func setViewControllerProtocol(view: RecipeDetailViewControllerProtocol) {
+        self.view = view
     }
+    
     func getDetail(){
+        view?.updateSpinner(loading: true)
         service.getRecipe(recipeId: recipeId) {recipe in
+            guard let recipe else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.updateSpinner(loading: false)
+                    self?.router.showError(error: "No se pudo cargar la receta")
+                }
+                return
+            }
             DispatchQueue.main.async { [weak self] in
-                self?.setRecipeModel(from: recipe)
-                self?.view?.updateDetail()
+                if let self {
+                    self.view?.updateSpinner(loading: false)
+                    self.view?.updateDetail(with: self.getRecipeModel(from: recipe))
+                }
             }
         }
     }
+    
+
+    
+    func showScreen() {
+        router.showScreen(viewModel: self)
+    }
+    
+    func showLocation() {
+        router.showLocation(location: location)
+    }
+    
 }

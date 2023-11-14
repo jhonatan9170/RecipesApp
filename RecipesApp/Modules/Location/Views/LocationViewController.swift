@@ -9,7 +9,8 @@ import UIKit
 import MapKit
 
 protocol LocationViewControllerProtocol:AnyObject {
-    func updateMap()
+    func updateMap(with coordinates: CLLocationCoordinate2D)
+    func updateSpinner(loading: Bool)
 }
 
 class LocationViewController: UIViewController {
@@ -22,39 +23,35 @@ class LocationViewController: UIViewController {
         }
     }
     
-    var viewModel: LocationViewModelProtocol?
+    var viewModel: LocationViewModelProtocol
+    
+    init(viewModel: LocationViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: String(describing: LocationViewController.self), bundle: Bundle.main)
+        viewModel.setViewControllerProtocol(view: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        viewModel?.getCoordinates()
-    }
-    
-    private func setupViews() {
-        view.addSpinner()
-        if let location = viewModel?.location {
-            self.title = location + ", Perú"
-        }
-    }
-    
-    private func showError() {
-        view.removeSpinner()
-        locationView.isHidden = false
+        self.title = viewModel.location
+        viewModel.getCoordinates()
     }
 }
 
 extension LocationViewController: LocationViewControllerProtocol {
     
-    func updateMap() {
+    func updateMap(with coordinates: CLLocationCoordinate2D) {
         locationView.isHidden = false
-        let pin = MKPointAnnotation()
-        if let coordinates = viewModel?.coordidates {
-            pin.coordinate = coordinates
-        } else {
-            showError()
-        }
-        view.removeSpinner()
+        let pin = MKPointAnnotation(__coordinate: coordinates)
         locationView.addAnnotation(pin)
+    }
+    
+    func updateSpinner(loading: Bool){
+        loading ? view.addSpinner() : view.removeSpinner()
     }
 }
 

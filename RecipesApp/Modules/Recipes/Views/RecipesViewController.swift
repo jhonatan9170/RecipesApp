@@ -9,7 +9,7 @@ import UIKit
 
 protocol RecipesViewControllerProtocol:AnyObject {
     func reloadTableView()
-    func error(error: String)
+    func updateSpinner(loading: Bool)
 }
 
 class RecipesViewController: UIViewController {
@@ -29,20 +29,25 @@ class RecipesViewController: UIViewController {
         }
     }
     
-    var viewModel: RecipesViewModelProtocol!
+    private var viewModel: RecipesViewModelProtocol
 
+    init(viewModel: RecipesViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: String(describing: RecipesViewController.self), bundle: Bundle.main)
+        self.viewModel.setViewControllerProtocol(view: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDelegates()
-        setupViews()
-        viewModel?.getRecipes()
+        setupView()
+        viewModel.getRecipes()
     }
     
-    private func setupDelegates(){
-        view.addSpinner()
-    }
-    
-    private func setupViews() {
+    private func setupView() {
         self.title = "Peruvian Recipes"
         navigationController?.navigationBar.tintColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
@@ -65,9 +70,7 @@ extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recipe = viewModel.recipeForCellAtIndex(indexPath.row)
-        let vc = RecipeDetailViewController(recipeId: "RecipeDetailViewController", location:recipe.origen )        
-        navigationController?.pushViewController(vc, animated: true)
+        viewModel.showDetail(index: indexPath.row)
     }
 }
 
@@ -78,19 +81,15 @@ extension RecipesViewController: UISearchBarDelegate{
         } else {
             viewModel.filterByName(text: searchText)}
     }
-    
 }
 
 extension RecipesViewController: RecipesViewControllerProtocol{
     
     func reloadTableView() {
-        view.removeSpinner()
         recipeTableView.reloadData()
     }
     
-    func error(error: String) {
-        view.removeSpinner()
-        showErrorAlert(error: error)
+    func updateSpinner(loading: Bool){
+        loading ? view.addSpinner() : view.removeSpinner()
     }
-
 }

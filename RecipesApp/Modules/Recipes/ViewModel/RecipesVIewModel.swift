@@ -8,25 +8,31 @@
 import Foundation
 
 protocol RecipesViewModelProtocol {
+    
     var recipesToShow: RecipesResponse {get}
+    
+    func setViewControllerProtocol(view : RecipesViewControllerProtocol)
     func getRecipes()
     func filterByName(text: String)
     func cleanFilter()
     func recipeForCellAtIndex(_ index : Int) -> RecipesElement
+    
+    func showDetail(index: Int)
+    func showScreen()
 }
 
 class RecipesViewModel {
     
     private var service: RecipesDataSourceProtocol
-    private weak var view: (RecipesViewControllerProtocol)?
-    
+    private weak var view:RecipesViewControllerProtocol?
+    private let router: RecipesRouterProtocol
     var _recipesToShow: RecipesResponse = []
     
     private var allRecipes: RecipesResponse = []
     
-    init(service: RecipesDataSourceProtocol = RecipesDataSource(),view: RecipesViewControllerProtocol) {
+    init(service: RecipesDataSourceProtocol = RecipesDataSource(),router: RecipesRouterProtocol) {
         self.service = service
-        self.view = view
+        self.router = router
     }
         
 }
@@ -37,17 +43,24 @@ extension RecipesViewModel:RecipesViewModelProtocol{
         return _recipesToShow
     }
     
+    func setViewControllerProtocol(view: RecipesViewControllerProtocol) {
+        self.view = view
+    }
+    
     func getRecipes(){
+        view?.updateSpinner(loading: true)
         service.getRecipes { recipes in
             guard let recipes else {
                 DispatchQueue.main.async { [weak self] in
-                    self?.view?.error(error: "No se pudo cargar las recetas")
+                    self?.view?.updateSpinner(loading: false)
+                    self?.router.showError(error: "No se pudo cargar las recetas")
                 }
                 return
             }
             DispatchQueue.main.async { [weak self] in
                 self?._recipesToShow = recipes
                 self?.allRecipes = recipes
+                self?.view?.updateSpinner(loading: false)
                 self?.view?.reloadTableView()
             }
         }
@@ -66,4 +79,14 @@ extension RecipesViewModel:RecipesViewModelProtocol{
         self._recipesToShow = self.allRecipes
         view?.reloadTableView()
     }
+
+    func showScreen() {
+        return router.showScreen(viewModel: self)
+    }
+    
+    func showDetail(index: Int) {
+        let recipe = recipeForCellAtIndex(index)
+        router.showRecipeDetail(recipe:recipe)
+    }
+
 }
