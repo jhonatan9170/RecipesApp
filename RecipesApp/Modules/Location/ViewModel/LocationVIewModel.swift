@@ -43,8 +43,10 @@ extension LocationViewModel: LocationViewModelProtocol {
     
     func getCoordinates() {
         service.coordinate(for: location) { coordinate in
-            self._coordinates = coordinate
-            self.view.updateMap()
+            DispatchQueue.main.async { [weak self]
+                self?._coordinates = coordinate
+                self?.view.updateMap()
+            }
         }
     }
 }

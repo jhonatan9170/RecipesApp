@@ -14,7 +14,7 @@ protocol LocationViewControllerProtocol {
 
 class LocationViewController: UIViewController {
     
-    @IBOutlet weak var locationView:MKMapView! {
+    @IBOutlet weak private var locationView:MKMapView! {
         didSet{
             let centre = CLLocationCoordinate2D(latitude:  -9.189967, longitude: -75.015152)
             locationView.setCenter(centre, animated: false)
