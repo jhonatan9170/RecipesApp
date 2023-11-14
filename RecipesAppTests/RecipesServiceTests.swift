@@ -10,12 +10,12 @@ import XCTest
 
 class RecipesServiceTests: XCTestCase {
 
-    var recipesService: RecipesService!
+    var recipesService: RecipesDataSource!
     var mockAPIClient: MockAPIClient!
     
     override func setUp() {
         super.setUp()
-        recipesService = RecipesService()
+        recipesService = RecipesDataSource()
         mockAPIClient = MockAPIClient()
         recipesService.apiClient = mockAPIClient
        

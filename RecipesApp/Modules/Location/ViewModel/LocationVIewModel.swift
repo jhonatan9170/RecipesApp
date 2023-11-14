@@ -17,13 +17,13 @@ protocol LocationViewModelProtocol:AnyObject {
 
 class LocationViewModel {
     
-    private var service:LocationServiceProtocol
+    private var service:LocationDateSourceProtocol
     private weak var view: LocationViewControllerProtocol?
     private var _location: String
     private var _coordinates: CLLocationCoordinate2D?
     
     init(view: LocationViewControllerProtocol,
-         service: LocationServiceProtocol = LocationService(),
+         service: LocationDateSourceProtocol = LocationDataSource(),
          location:String) {
         self.view = view
         _location = location

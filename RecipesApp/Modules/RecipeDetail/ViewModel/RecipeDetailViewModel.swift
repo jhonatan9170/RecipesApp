@@ -21,11 +21,11 @@ class RecipeDetailViewModel{
     
     private let recipeId: String
     
-    private var service: RecipesServiceProtocol
+    private var service: RecipesDataSource
     
     private weak var view: RecipeDetailViewControllerProtocol?
 
-    init(service: RecipesServiceProtocol = RecipesService(),recipeId:String,location: String,view:RecipeDetailViewControllerProtocol) {
+    init(service: RecipesDataSource = RecipesDataSource(), recipeId: String, location: String, view: RecipeDetailViewControllerProtocol) {
         self.recipeId = recipeId
         self.service = service
         self._location = location

@@ -14,8 +14,20 @@ protocol RecipesViewControllerProtocol:AnyObject {
 
 class RecipesViewController: UIViewController {
     
-    @IBOutlet weak private var searchBar: UISearchBar!
-    @IBOutlet weak private var recipeTableView: UITableView!
+    @IBOutlet weak private var searchBar: UISearchBar! {
+        didSet{
+            searchBar.delegate = self
+        }
+    }
+    @IBOutlet weak private var recipeTableView: UITableView!{
+        didSet{
+            recipeTableView.dataSource = self
+            recipeTableView.delegate = self
+            recipeTableView.register(UINib(nibName: "RecipesTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipesTableViewCell")
+            recipeTableView.backgroundColor = .clear
+            recipeTableView.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: 0, right: 0)
+        }
+    }
     
     var viewModel: RecipesViewModelProtocol!
 
@@ -27,17 +39,11 @@ class RecipesViewController: UIViewController {
     }
     
     private func setupDelegates(){
-        recipeTableView.dataSource = self
-        recipeTableView.delegate = self
-        searchBar.delegate = self
         view.addSpinner()
     }
     
     private func setupViews() {
         self.title = "Peruvian Recipes"
-        recipeTableView.register(UINib(nibName: "RecipesTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipesTableViewCell")
-        recipeTableView.backgroundColor = .clear
-        recipeTableView.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: 0, right: 0)
         navigationController?.navigationBar.tintColor = .white
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
     }
@@ -59,10 +65,8 @@ extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
         let recipe = viewModel.recipeForCellAtIndex(indexPath.row)
-        vc.viewModel = RecipeDetailViewModel(recipeId: recipe.recipeId,location: recipe.origen, view: vc)
-        
+        let vc = RecipeDetailViewController(recipeId: "RecipeDetailViewController", location:recipe.origen )        
         navigationController?.pushViewController(vc, animated: true)
     }
 }

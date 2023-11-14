@@ -17,14 +17,14 @@ protocol RecipesViewModelProtocol {
 
 class RecipesViewModel {
     
-    private var service: RecipesServiceProtocol
+    private var service: RecipesDataSourceProtocol
     private weak var view: (RecipesViewControllerProtocol)?
     
-    var _recipesToShow :RecipesResponse = []
+    var _recipesToShow: RecipesResponse = []
     
-    private var allRecipes:RecipesResponse = []
+    private var allRecipes: RecipesResponse = []
     
-    init(service: RecipesServiceProtocol = RecipesService(),view: RecipesViewControllerProtocol) {
+    init(service: RecipesDataSourceProtocol = RecipesDataSource(),view: RecipesViewControllerProtocol) {
         self.service = service
         self.view = view
     }

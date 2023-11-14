@@ -55,7 +55,16 @@ class RecipeDetailViewController: UIViewController {
         }
     }
     
-    var viewModel:RecipeDetailViewModelProtocol?
+    private var viewModel:RecipeDetailViewModelProtocol?
+    
+    init(recipeId: String, location: String) {
+        super.init(nibName: String(describing: RecipeDetailViewController.self), bundle: Bundle.main)
+        self.viewModel = RecipeDetailViewModel(recipeId: recipeId, location: location, view: self)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

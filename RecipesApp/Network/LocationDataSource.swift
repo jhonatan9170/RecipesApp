@@ -1,5 +1,5 @@
 //
-//  LocationService.swift
+//  LocationDataSource.swift
 //  RecipesApp
 //
 //  Created by Jhonatan chavez chavez on 10/11/23.
@@ -7,7 +7,7 @@
 
 import CoreLocation
 
-class LocationService:LocationServiceProtocol {
+class LocationDataSource:LocationDateSourceProtocol {
     
     var geoCoder: GeoCoderProtocol = CLGeocoder()
     func coordinate(for address: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
@@ -24,7 +24,7 @@ class LocationService:LocationServiceProtocol {
     
 }
 
-protocol LocationServiceProtocol {
+protocol LocationDateSourceProtocol {
     func coordinate(for address:String,completion: @escaping (CLLocationCoordinate2D?)-> Void)
 }
 

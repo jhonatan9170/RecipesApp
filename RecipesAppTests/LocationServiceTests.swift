@@ -11,13 +11,13 @@ import MapKit
 
 class LocationServiceTests: XCTestCase {
 
-    var locationService: LocationService!
+    var locationService: LocationDataSource!
     var mockGeoCoder: MockGeoCoder!
 
     override func setUp() {
         super.setUp()
         mockGeoCoder = MockGeoCoder()
-        locationService = LocationService()
+        locationService = LocationDataSource()
         locationService.geoCoder = mockGeoCoder
     }
 

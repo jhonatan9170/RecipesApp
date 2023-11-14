@@ -8,14 +8,12 @@
 import Foundation
 
 
-protocol RecipesServiceProtocol {
+protocol RecipesDataSourceProtocol {
     func getRecipe(recipeId:String , completion: @escaping (RecipeResponse?) -> Void )
     func getRecipes(completion: @escaping (RecipesResponse?) -> Void)
 }
 
-
-
-class RecipesService:RecipesServiceProtocol {
+class RecipesDataSource:RecipesDataSourceProtocol {
     
     var apiClient: APIClientProtocol
     
