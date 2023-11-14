@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-protocol LocationViewControllerProtocol {
+protocol LocationViewControllerProtocol:AnyObject {
     func updateMap()
 }
 

@@ -7,66 +7,89 @@
 
 import UIKit
 
+protocol RecipeDetailViewControllerProtocol: AnyObject {
+    func updateDetail()
+}
 
 class RecipeDetailViewController: UIViewController {
     
-    @IBOutlet weak var recipeImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var ingredientsLabel: UILabel!
-    @IBOutlet weak var procedureLabel: UILabel!
-    @IBOutlet weak var diffficultyLabel: UILabel!
-    @IBOutlet weak var locationButton: UIButton!
+    @IBOutlet weak private var recipeImage: UIImageView!
+    @IBOutlet weak private var titleLabel: UILabel!{
+        didSet{
+            setLabel(label: titleLabel)
+        }
+    }
+    @IBOutlet weak private var descriptionLabel: UILabel!{
+        didSet{
+            setLabel(label: descriptionLabel)
+        }
+    }
+    @IBOutlet weak private var ingredientsLabel: UILabel!{
+        didSet{
+            setLabel(label: ingredientsLabel)
+        }
+    }
+    @IBOutlet weak private var procedureLabel: UILabel!{
+        didSet{
+            setLabel(label: procedureLabel)
+        }
+    }
+    @IBOutlet weak private var diffficultyLabel: UILabel!{
+        didSet{
+            setLabel(label: diffficultyLabel)
+        }
+    }
+    @IBOutlet weak private var locationButton: UIButton!{
+        didSet {
+            let attributeString = NSMutableAttributedString(
+                string: "  Location: "+viewModel.location,
+                attributes: [.underlineStyle:NSUnderlineStyle.single.rawValue]
+            )
+            locationButton.setAttributedTitle(attributeString, for: .normal)
+        }
+    }
     
-    var viewModel:RecipeDetailViewModel!
+    var viewModel:RecipeDetailViewModelProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
-        viewModel.delegate = self
         viewModel.getDetail()
         view.addSpinner()
     }
-
-    func setupViews() {
-        self.title = viewModel.title
-        titleLabel.text = viewModel.title
-        descriptionLabel.text = viewModel.description
-        let url = URL(string:viewModel.urlImage)
-        recipeImage.kf.setImage(with: url,placeholder: UIImage(named: "imagePlaceholder"))
-        ingredientsLabel.text = viewModel.ingredients
-        procedureLabel.text = viewModel.procedure
-        diffficultyLabel.text = viewModel.difficulty
-        let attributeString = NSMutableAttributedString(
-              string: "  Location: "+viewModel.location,
-              attributes: [.underlineStyle:NSUnderlineStyle.single.rawValue]
-           )
-        locationButton.setAttributedTitle(attributeString, for: .normal)
-
+    
+    private func setLabel(label: UILabel?){
+        label?.text =  ""
     }
-    @IBAction func locationButtonTapped( _ sender :UIButton) {
+    
+    private func setupView(with recipe: Recipe) {
+        self.title = recipe.name
+        titleLabel.text = recipe.name
+        descriptionLabel.text = recipe.description
+        recipeImage.kf.setImage(with: URL(string: recipe.urlImg),placeholder: UIImage(named: "imagePlaceholder"))
+        ingredientsLabel.text = recipe.ingredients
+        procedureLabel.text = recipe.procedure
+        diffficultyLabel.text = recipe.dificulty
+        
+    }
+    
+    private func showError() {
+        showErrorAlert(error: "No se pudo cargar la receta")
+    }
+    
+    @IBAction private func locationButtonTapped( _ sender :UIButton) {
         let vc = LocationViewController(nibName: "LocationViewController", bundle: nil)
         vc.viewModel = LocationViewModel(view: vc, location: viewModel.location)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension RecipeDetailViewController: RecipeDetailViewModelDelegate {
-    func success(_ viewModel: RecipeDetailViewModel) {
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-            self?.setupViews()
+extension RecipeDetailViewController: RecipeDetailViewControllerProtocol {
+    func updateDetail() {
+        view.removeSpinner()
+        if let recipe = viewModel.recipe {
+            setupView(with: recipe)
+        } else {
+            showError()
         }
     }
-    
-    func error(_ viewModel: RecipeDetailViewModel) {
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.view.removeSpinner()
-            self?.showErrorAlert(error: "No se pudo cargar la receta")
-        }
-        
-    }
-    
-    
 }

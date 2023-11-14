@@ -57,10 +57,8 @@ extension RecipesViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = RecipeDetailViewController(nibName: "RecipeDetailViewController", bundle: nil)
         let recipe = viewModel.recipeForCellAtIndex(indexPath.row)
-        let vm = RecipeDetailViewModel(recipeId: recipe.recipeId)
-        vm.location = recipe.origen
+        vc.viewModel = RecipeDetailViewModel(recipeId: recipe.recipeId,location: recipe.origen, view: vc)
         
-        vc.viewModel = vm
         navigationController?.pushViewController(vc, animated: true)
     }
 }

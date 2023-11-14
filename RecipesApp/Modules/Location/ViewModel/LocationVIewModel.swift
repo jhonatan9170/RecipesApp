@@ -18,7 +18,7 @@ protocol LocationViewModelProtocol:AnyObject {
 class LocationViewModel {
     
     private var service:LocationServiceProtocol
-    private var view: LocationViewControllerProtocol
+    private weak var view: LocationViewControllerProtocol?
     private var _location: String
     private var _coordinates: CLLocationCoordinate2D?
     
@@ -43,9 +43,9 @@ extension LocationViewModel: LocationViewModelProtocol {
     
     func getCoordinates() {
         service.coordinate(for: location) { coordinate in
-            DispatchQueue.main.async { [weak self]
+            DispatchQueue.main.async { [weak self] in
                 self?._coordinates = coordinate
-                self?.view.updateMap()
+                self?.view?.updateMap()
             }
         }
     }

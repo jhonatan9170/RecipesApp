@@ -7,54 +7,49 @@
 
 import Foundation
 
-protocol RecipeDetailViewModelDelegate:AnyObject {
-    func success(_ viewModel:RecipeDetailViewModel )
-    func error(_ viewModel:RecipeDetailViewModel )
+protocol RecipeDetailViewModelProtocol: AnyObject {
+    var location: String { get }
+    var recipe: Recipe? { get }
+    func getDetail()
 }
 
 class RecipeDetailViewModel{
-    
-    var recipeId:String
-    var title = ""
-    var difficulty: String?
-    var description: String?
-    var urlImage = ""
-    var ingredients = ""
-    var procedure = ""
-    var location = ""
-    
-    var service:RecipesServiceProtocol
-    
-    weak var delegate: RecipeDetailViewModelDelegate?
 
+    let _location: String
+    
+    private var _recipe:Recipe?
+    
+    private let recipeId: String
+    
+    private var service: RecipesServiceProtocol
+    
+    private weak var view: RecipeDetailViewControllerProtocol?
 
-    init(service: RecipesServiceProtocol = RecipesService(),recipeId:String) {
+    init(service: RecipesServiceProtocol = RecipesService(),recipeId:String,location: String,view:RecipeDetailViewControllerProtocol) {
         self.recipeId = recipeId
         self.service = service
+        self._location = location
+        self.view = view
     }
     
-    func getDetail(){
-        service.getRecipe(recipeId: recipeId) {[weak self] recipe in
-            guard let self else {
-                return
-            }
-            
-            guard let recipe else {
-                self.delegate?.error(self)
-                return
-            }
-            
-            self.title = recipe.name
-            self.description = recipe.description
-            self.difficulty = recipe.difficulty
-            self.urlImage = recipe.imageSrc
-            self.ingredients = self.getIngredientsText(recipe.ingredients)
-            self.procedure = self.getProcedureText(recipe.steps)
-            self.delegate?.success(self)
+    private func setRecipeModel(from recipeResponse: RecipeResponse?){
+        
+        guard let recipeResponse else {
+            return
         }
+        
+        let ingredients = getIngredientsText(recipeResponse.ingredients)
+        let procedure = getProcedureText(recipeResponse.steps)
+        self._recipe = Recipe(name: recipeResponse.name,
+                             dificulty: recipeResponse.difficulty ?? "",
+                             description: recipeResponse.description ?? "",
+                             ingredients: ingredients,
+                             urlImg: recipeResponse.imageSrc,
+                             procedure: procedure)
     }
     
-    func getIngredientsText(_ ingredients: [String]?) -> String {
+    
+    private func getIngredientsText(_ ingredients: [String]?) -> String {
         guard let ingredients, !ingredients.isEmpty else {
             return "No ingredients available"
         }
@@ -62,7 +57,7 @@ class RecipeDetailViewModel{
         return ingredients.joined(separator: "\n")
     }
     
-    func getProcedureText(_ steps: [String: String]?) -> String {
+    private func getProcedureText(_ steps: [String: String]?) -> String {
         guard let steps = steps, !steps.isEmpty else {
             return "No steps available"
         }
@@ -73,4 +68,22 @@ class RecipeDetailViewModel{
         return stepDescriptions.joined(separator: "\n\n")
     }
     
+}
+
+extension RecipeDetailViewModel: RecipeDetailViewModelProtocol {
+    var location: String {
+        return _location
+    }
+    
+    var recipe: Recipe? {
+        return _recipe
+    }
+    func getDetail(){
+        service.getRecipe(recipeId: recipeId) {recipe in
+            DispatchQueue.main.async { [weak self] in
+                self?.setRecipeModel(from: recipe)
+                self?.view?.updateDetail()
+            }
+        }
+    }
 }
