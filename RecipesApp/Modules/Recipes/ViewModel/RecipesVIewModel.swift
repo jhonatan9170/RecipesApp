@@ -26,7 +26,7 @@ class RecipesViewModel {
     private var service: RecipesDataSourceProtocol
     private weak var view:RecipesViewControllerProtocol?
     private let router: RecipesRouterProtocol
-    var _recipesToShow: RecipesResponse = []
+    private var _recipesToShow: RecipesResponse = []
     
     private var allRecipes: RecipesResponse = []
     

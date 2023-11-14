@@ -15,7 +15,7 @@ protocol RecipesRouterProtocol {
 
 class RecipesRouter {
     private var window: UIWindow
-    private weak var baseController: UIViewController?
+    private weak var navigation: UINavigationController?
     
     init(window: UIWindow) {
         self.window = window
@@ -27,15 +27,15 @@ extension RecipesRouter: RecipesRouterProtocol {
         let viewController = RecipesViewController(viewModel: viewModel)
         let navigation = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigation
-        baseController = navigation
+        self.navigation = navigation
     }
     
      func showError(error: String) {
-         baseController?.showErrorAlert(error: error)
+         navigation?.showErrorAlert(error: error)
      }
     
     func showRecipeDetail(recipe: RecipesElement) {
-        guard let navigation = baseController as? UINavigationController else { return }
+        guard let navigation else { return }
         let builder = RecipeDetailBuilder(baseViewController: navigation, recipe: recipe)
         builder.showScreen()
     }
