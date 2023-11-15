@@ -23,11 +23,13 @@ class LocationViewModel {
     private weak var view: LocationViewControllerProtocol?
     private let router: LocationRouterProtocol
     private var _location: String
+    private let mainDispatchQueue: DispatchQueueType
     
-    init( service: LocationDateSourceProtocol = LocationDataSource(),router:LocationRouter, location:String) {
+    init( service: LocationDateSourceProtocol = LocationDataSource(),router:LocationRouter, location:String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
         _location = location
         self.service = service
         self.router = router
+        self.mainDispatchQueue = mainDispatchQueue
     }
 
 }
@@ -44,15 +46,15 @@ extension LocationViewModel: LocationViewModelProtocol {
     
     func getCoordinates() {
         view?.updateSpinner(loading: true)
-        service.coordinate(for: location) { coordinate in
+        service.coordinate(for: location) { [weak self]coordinate in
             guard let coordinate else  {
-                DispatchQueue.main.async { [weak self] in
+                self?.mainDispatchQueue.async { [weak self] in
                     self?.view?.updateSpinner(loading: false)
                     self?.router.showError(error: "No se cargaron las coordenadas")
                 }
                 return
             }
-            DispatchQueue.main.async { [weak self] in
+            self?.mainDispatchQueue.async { [weak self] in
                 self?.view?.updateSpinner(loading: false)
                 self?.view?.updateMap(with: coordinate)
             }

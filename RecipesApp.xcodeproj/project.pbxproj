@@ -29,6 +29,13 @@
 		038632302B042D7C0089B94D /* MockAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386322F2B042D7C0089B94D /* MockAPIClient.swift */; };
 		038632332B043A620089B94D /* MockGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632322B043A620089B94D /* MockGeocoder.swift */; };
 		038632352B043BB70089B94D /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632342B043BB70089B94D /* MockURLSession.swift */; };
+		038632392B0441490089B94D /* RecipesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632382B0441490089B94D /* RecipesViewModelTests.swift */; };
+		0386323B2B0441510089B94D /* RecipeDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386323A2B0441510089B94D /* RecipeDetailViewModelTests.swift */; };
+		038632402B0443160089B94D /* MockRecipesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386323F2B0443160089B94D /* MockRecipesDataSource.swift */; };
+		038632432B0444000089B94D /* MockRecipesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632422B0444000089B94D /* MockRecipesRouter.swift */; };
+		038632452B0444260089B94D /* MockRecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632442B0444260089B94D /* MockRecipesViewController.swift */; };
+		038632472B04510E0089B94D /* Extension+Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632462B04510E0089B94D /* Extension+Dispatch.swift */; };
+		038632492B0453F80089B94D /* DispatchQueueMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038632482B0453F80089B94D /* DispatchQueueMock.swift */; };
 		039EF01B2AFC847800141A29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01A2AFC847800141A29 /* AppDelegate.swift */; };
 		039EF01D2AFC847800141A29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EF01C2AFC847800141A29 /* SceneDelegate.swift */; };
 		039EF0242AFC847A00141A29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 039EF0232AFC847A00141A29 /* Assets.xcassets */; };
@@ -81,6 +88,13 @@
 		0386322F2B042D7C0089B94D /* MockAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIClient.swift; sourceTree = "<group>"; };
 		038632322B043A620089B94D /* MockGeocoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeocoder.swift; sourceTree = "<group>"; };
 		038632342B043BB70089B94D /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		038632382B0441490089B94D /* RecipesViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecipesViewModelTests.swift; path = RecipesAppTests/Recipes/RecipesViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		0386323A2B0441510089B94D /* RecipeDetailViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecipeDetailViewModelTests.swift; path = RecipesAppTests/RecipeDetailViewModelTests.swift; sourceTree = SOURCE_ROOT; };
+		0386323F2B0443160089B94D /* MockRecipesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipesDataSource.swift; sourceTree = "<group>"; };
+		038632422B0444000089B94D /* MockRecipesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipesRouter.swift; sourceTree = "<group>"; };
+		038632442B0444260089B94D /* MockRecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRecipesViewController.swift; sourceTree = "<group>"; };
+		038632462B04510E0089B94D /* Extension+Dispatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Dispatch.swift"; sourceTree = "<group>"; };
+		038632482B0453F80089B94D /* DispatchQueueMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMock.swift; sourceTree = "<group>"; };
 		039EF0172AFC847800141A29 /* RecipesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		039EF01A2AFC847800141A29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		039EF01C2AFC847800141A29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -273,6 +287,7 @@
 			children = (
 				03C6FC782AFDCC93001730D4 /* Extensions+UIView.swift */,
 				030E8FFA2B02E8240018C8BC /* Extension+UIViewController.swift */,
+				038632462B04510E0089B94D /* Extension+Dispatch.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -337,6 +352,7 @@
 		038632312B04398C0089B94D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				0386323A2B0441510089B94D /* RecipeDetailViewModelTests.swift */,
 				038632372B043FF60089B94D /* Tests */,
 				038632362B043FE90089B94D /* Mocks */,
 			);
@@ -349,6 +365,8 @@
 				038632322B043A620089B94D /* MockGeocoder.swift */,
 				0386322F2B042D7C0089B94D /* MockAPIClient.swift */,
 				038632342B043BB70089B94D /* MockURLSession.swift */,
+				0386323F2B0443160089B94D /* MockRecipesDataSource.swift */,
+				038632482B0453F80089B94D /* DispatchQueueMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -361,6 +379,16 @@
 				032935792AFF341C002D2E45 /* LocationServiceTests.swift */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		0386323E2B0441A10089B94D /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				038632422B0444000089B94D /* MockRecipesRouter.swift */,
+				038632442B0444260089B94D /* MockRecipesViewController.swift */,
+				038632382B0441490089B94D /* RecipesViewModelTests.swift */,
+			);
+			path = Recipes;
 			sourceTree = "<group>";
 		};
 		039EF00E2AFC847800141A29 = {
@@ -400,6 +428,7 @@
 		039EF0302AFC847A00141A29 /* RecipesAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				0386323E2B0441A10089B94D /* Recipes */,
 				038632312B04398C0089B94D /* Network */,
 			);
 			path = RecipesAppTests;
@@ -615,6 +644,7 @@
 				0386322B2B041E130089B94D /* LocationRouter.swift in Sources */,
 				03EB4BE42AFDB3C900F41A24 /* RecipesDataSource.swift in Sources */,
 				038632282B0400AF0089B94D /* RecipesRouter.swift in Sources */,
+				038632472B04510E0089B94D /* Extension+Dispatch.swift in Sources */,
 				03C6FC8C2AFEA056001730D4 /* RecipesViewController.swift in Sources */,
 				030E8FFB2B02E8240018C8BC /* Extension+UIViewController.swift in Sources */,
 				0362F0BD2AFEE98F00EF8709 /* LocationViewController.swift in Sources */,
@@ -639,11 +669,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038632432B0444000089B94D /* MockRecipesRouter.swift in Sources */,
 				038632352B043BB70089B94D /* MockURLSession.swift in Sources */,
+				038632392B0441490089B94D /* RecipesViewModelTests.swift in Sources */,
+				038632402B0443160089B94D /* MockRecipesDataSource.swift in Sources */,
+				0386323B2B0441510089B94D /* RecipeDetailViewModelTests.swift in Sources */,
 				038632332B043A620089B94D /* MockGeocoder.swift in Sources */,
 				03EB4BEA2AFDB81400F41A24 /* APIClientTest.swift in Sources */,
 				038632302B042D7C0089B94D /* MockAPIClient.swift in Sources */,
 				03C6FC812AFE8ED4001730D4 /* RecipesServiceTests.swift in Sources */,
+				038632492B0453F80089B94D /* DispatchQueueMock.swift in Sources */,
+				038632452B0444260089B94D /* MockRecipesViewController.swift in Sources */,
 				0329357A2AFF341C002D2E45 /* LocationServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

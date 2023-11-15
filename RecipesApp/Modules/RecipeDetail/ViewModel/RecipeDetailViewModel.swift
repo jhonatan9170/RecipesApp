@@ -26,12 +26,14 @@ class RecipeDetailViewModel{
     
     private weak var view: RecipeDetailViewControllerProtocol?
     private let router: RecipeDetailRouterProtocol
+    private let mainDispatchQueue: DispatchQueueType
 
-    init(service: RecipesDataSource = RecipesDataSource(),router: RecipeDetailRouterProtocol, recipeId: String, location: String) {
+    init(service: RecipesDataSource = RecipesDataSource(),router: RecipeDetailRouterProtocol, recipeId: String, location: String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
         self.service = service
         self.recipeId = recipeId
         self._location = location
         self.router = router
+        self.mainDispatchQueue = mainDispatchQueue
     }
     
     private func getRecipeModel(from recipeResponse: RecipeResponse)->Recipe{
@@ -79,15 +81,15 @@ extension RecipeDetailViewModel: RecipeDetailViewModelProtocol {
     
     func getDetail(){
         view?.updateSpinner(loading: true)
-        service.getRecipe(recipeId: recipeId) {recipe in
+        service.getRecipe(recipeId: recipeId) { [weak self ] recipe in
             guard let recipe else {
-                DispatchQueue.main.async { [weak self] in
+                self?.mainDispatchQueue.async { [weak self] in
                     self?.view?.updateSpinner(loading: false)
                     self?.router.showError(error: "No se pudo cargar la receta")
                 }
                 return
             }
-            DispatchQueue.main.async { [weak self] in
+            self?.mainDispatchQueue.async { [weak self] in
                 if let self {
                     self.view?.updateSpinner(loading: false)
                     self.view?.updateDetail(with: self.getRecipeModel(from: recipe))
