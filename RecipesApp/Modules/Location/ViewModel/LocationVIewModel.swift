@@ -25,7 +25,7 @@ class LocationViewModel {
     private var _location: String
     private let mainDispatchQueue: DispatchQueueType
     
-    init( service: LocationDateSourceProtocol = LocationDataSource(),router:LocationRouter, location:String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
+    init( service: LocationDateSourceProtocol = LocationDataSource(),router:LocationRouterProtocol, location:String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
         _location = location
         self.service = service
         self.router = router

@@ -8,7 +8,7 @@
 import XCTest
 @testable import RecipesApp
 
-class RecipesViewModelTests: XCTestCase {
+final class RecipesViewModelTests: XCTestCase {
 
     var sut: RecipesViewModel!
     var mockDataSource: MockRecipesDataSource!
