@@ -22,13 +22,13 @@ class RecipeDetailViewModel{
         
     private let recipeId: String
     
-    private var service: RecipesDataSource
+    private var service: RecipesDataSourceProtocol
     
     private weak var view: RecipeDetailViewControllerProtocol?
     private let router: RecipeDetailRouterProtocol
     private let mainDispatchQueue: DispatchQueueType
 
-    init(service: RecipesDataSource = RecipesDataSource(),router: RecipeDetailRouterProtocol, recipeId: String, location: String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
+    init(service: RecipesDataSourceProtocol = RecipesDataSource(),router: RecipeDetailRouterProtocol, recipeId: String, location: String,mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
         self.service = service
         self.recipeId = recipeId
         self._location = location

@@ -15,5 +15,8 @@ struct Recipe {
     let urlImg: String
     let procedure: String
 }
+extension Recipe:Equatable {
+    
+}
 
 
